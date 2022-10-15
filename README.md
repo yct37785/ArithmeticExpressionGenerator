@@ -1,2 +1,2 @@
 # ArithmeticStringGenerator
-Generate a random arithmetic problem string with the answer using BST.
+Generate a random arithmetic problem string with the answer using a binary tree.
