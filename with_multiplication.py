@@ -1,7 +1,7 @@
 import random
 import time
 universal_str = []
-operators = ['+', '-']
+operators = ['+', '-', '*']
 
 
 class Node:
@@ -75,14 +75,16 @@ def tree_to_str(root):
     can_flatten = root.value == '+' or root.value == '-'
     # remove braces and flip all addition and subtraction operators if root is -
     if can_flatten:
-        flatten_subtree(lbp1, lbp2, False)
-        flatten_subtree(rbp1, rbp2, root.value == '-')
-    return total_sum, can_flatten, left_brace_pos, right_brace_pos
+        if left_can_flatten:
+            flatten_subtree(lbp1, lbp2, False)
+        if right_can_flatten:
+            flatten_subtree(rbp1, rbp2, root.value == '-')
+    return total_sum, can_flatten and left_can_flatten and right_can_flatten, left_brace_pos, right_brace_pos
 
 
 if __name__ == '__main__':
-    random.seed(time.time())
-    # random.seed(10)
+    # random.seed(time.time())
+    random.seed(160)
     root = Node(operators[random.randint(0, len(operators)) - 1])
     max_depth = random.randint(7, 7)
     # recursive to gen children for parent (root in this case)
