@@ -2,6 +2,7 @@ import random
 universal_str = ''
 operators = ['+', '-']
 
+
 class Node:
     def __init__(self, value):
         self.left_children = []
@@ -40,27 +41,33 @@ def apply_value(sum, number, operator):
 
 def tree_to_str(root):
     global universal_str
-    sum_value = 0
     if len(root.left_children) > 0:
         universal_str += '('
     # do an in-order traversal of left children
+    total_sum = 0
     for i in range(len(root.left_children)):
         v = tree_to_str(root.left_children[i])
+        if i == 0:
+            total_sum = v
+        else:
+            total_sum = apply_value(total_sum, v, root.value)
         if i < len(root.left_children) - 1:
             universal_str += str(root.value)
-    # if root.value == '+':
-    #     universal_str += '|' + root.value + '|'
-    # else:
-    #     universal_str += str(root.value)
+    # operator/number
     universal_str += str(root.value)
     # do an in-order traversal of right children
     for i in range(len(root.right_children)):
         v = tree_to_str(root.right_children[i])
+        total_sum = apply_value(total_sum, v, root.value)
         if i < len(root.right_children) - 1:
             universal_str += str(root.value)
     if len(root.right_children) > 0:
         universal_str += ')'
-    return sum_value
+    # return sum
+    if len(root.left_children) > 0:
+        return total_sum
+    else:
+        return root.value
 
 if __name__ == '__main__':
     root = Node('+')
