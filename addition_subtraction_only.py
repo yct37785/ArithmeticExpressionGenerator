@@ -69,8 +69,9 @@ def tree_to_str(root):
     else:
         return root.value
 
+
 if __name__ == '__main__':
-    root = Node('+')
+    root = Node(operators[random.randint(0, len(operators)) - 1])
     max_depth = random.randint(2, 2)
     max_children = random.randint(2, 2)
     # recursive to gen children for parent (root in this case)
